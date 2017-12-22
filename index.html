@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <style>
+    .tests {
+      width: 100%;
+      height: 400px;
+      font-size: 0;
+    }
+
+    .tests>.test {
+      width: 100%;
+      height: 40px;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .tests>.test>label {
+      width: 100px;
+      line-height: 40px;
+      text-align: right;
+      display: inline-block;
+    }
+
+    .tests>.test>input {
+      width: 300px;
+      height: 20px;
+      line-height: 40px;
+    }
+
+    .buttons {
+      width: 100%;
+      height: 30px;
+      font-size: 0;
+    }
+
+    .buttons>.button {
+      width: 60px;
+      height: 100%;
+      padding-left: 10px;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    .buttons>.button>input {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="messages"></ul>
+  <div class="tests">
+    <div class="test">
+      <label>测试1：</label>
+      <input id="test1" type="text">
+    </div>
+    <div class="test">
+      <label>测试2：</label>
+      <input id="test2" type="text">
+    </div>
+  </div>
+  <div class="buttons">
+    <div class="button">
+      <input id="btn1" type="button" value="登录">
+    </div>
+    <div class="button">
+      <input id="btn2" type="button" value="创建房间">
+    </div>
+    <div class="button">
+      <input id="btn3" type="button" value="加入房间">
+    </div>
+    <div class="button">
+      <input id="btn4" type="button" value="测试2">
+    </div>
+    <div class="button">
+      <input id="btn5" type="button" value="测试2">
+    </div>
+  </div>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+
+      //登录
+      $('#btn1').on('click', function (e) {
+        let group = $('#room').val();
+        socket.emit('login', $('#content').val());
+        socket.on('login_state', function (state) {
+          let msg = state ? '登录成功' : '登录失败';
+          $('#messages').append($('<li>').text(msg));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+        return false;
+      });
+
+      socket.on('chat message', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+
+    });
+  </script>
+</body>
+
+</html>

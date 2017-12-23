@@ -1,27 +1,33 @@
 //var db = require('../utils/db');
-require('player.js');
+const player = require('player.js');
+const path = require('path');
+const root_path = path.resolve(__dirname, '..');
+const config = require(root_path + '/config.js');
+const max_player = 3;
 let id = null;
 let creator = null;
 let players = [];
-let max_player = 3;
 
-function join(player,room) {
-  if(players.length>=max_player){
-    
+
+function join(player, room) {
+  if (players.length >= max_player) {
+
     return -1;//房间已满
   }
   let s = player;
 };
-function leave(player,room) {
+function leave(player, room) {
 
 };
-function create(player){
-  
-  
+function create(player) {
+  if (config.ROUND_PRICE > player.diamond) {
+    //钻石不够，请充值  
+  }
+
   this.create = player;
   this.players.push(player);
 }
 
-function validate(){
-  
+function validate() {
+
 }

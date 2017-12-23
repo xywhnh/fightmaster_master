@@ -1,5 +1,5 @@
 {
-  "name": "fightmaster",
+  "name": "fightmaster_server",
   "version": "0.0.1",
   "description": "my first game",
   "dependencies": {
@@ -7,6 +7,6 @@
     "socket.io": "^1.7.4"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js config.js"
   }
 }

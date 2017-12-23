@@ -1,5 +1,5 @@
 {
-  "name": "fightggmaster",
+  "name": "fightgmaster_server",
   "description": "A fun game",
   "website": "You guess~.",
   "repository": "https://github.com/xywhnh/fightmaster",
@@ -11,13 +11,13 @@
     "socket.io",
     "realtime",
     "websocket",
-    "fightmaster"
+    "fightgmaster"
   ],
   "scripts": {
   },
   "addons": [
   ],
   "env": {
-   // "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-nodejs"
+   
   }
 }

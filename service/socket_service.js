@@ -3,6 +3,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const path = require('path');
 const root_path = path.resolve(__dirname, '..');
+const platform = require(root_path + 'module/platform.js');
+const room = require(root_path + 'module/room.js');
 
 exports.start = function (config, mgr) {
 
@@ -20,6 +22,7 @@ exports.start = function (config, mgr) {
 
     socket.on('create_room', function (data) {
       //判断元宝是否够
+
 
 
       //doCreate;

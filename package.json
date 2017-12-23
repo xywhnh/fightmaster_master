@@ -4,6 +4,8 @@
   "description": "my first game",
   "dependencies": {
     "express": "^4.15.2",
+    "log4js": "^2.4.1",
+    "random-int": "^1.0.0",
     "socket.io": "^1.7.4"
   },
   "scripts": {

@@ -15,7 +15,8 @@ exports.start = function (config, mgr) {
     console.log(req);
     //res.sendFile(root_path + '/client_demo.html');
   });
-
+  
+  
   io.on('connection', function (socket) {
     console.log('conection success');
     socket.emit("create_state", true);

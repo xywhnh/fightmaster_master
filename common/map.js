@@ -5,7 +5,7 @@ function Map() {
 //将key-value放入map中    
 Map.prototype.put = function (key, value) {
   try {
-    if (key != null && key != "")
+    if (key != null && key !== "")
       this.container[key] = value;
   } catch (e) {
     return e;
@@ -113,6 +113,14 @@ Map.prototype.entrySet = function () {
     array.push(keys[i], this.container[keys[i]]);
   }
   return array;
+}
+
+Map.init = function (array) {
+  let map = new Map();
+  array.forEach(function (element) {
+    map.put(element.key, element.value);
+  }, this);
+  return map;
 }
 
 exports.Map = Map;

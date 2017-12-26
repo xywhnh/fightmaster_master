@@ -3,17 +3,26 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const path = require('path');
 const root_path = path.resolve(__dirname, '..');
-const platform = require(root_path + 'module/platform.js');
-const room = require(root_path + 'module/room.js');
-
+const platform = require(root_path + '\\module\\platform.js');
+const room = require(root_path + '\\module\\room.js');
+const player_service = require(root_path + '\\module\\player.js');
+//const platform = new platform_service.platform();
 exports.start = function (config, mgr) {
+
 
   //config = require(root_path + '/config.js');
   app.get('/', function (req, res) {
-    res.sendFile(root_path + '/client_demo.html');
+    console.log(req);
+    //res.sendFile(root_path + '/client_demo.html');
   });
 
   io.on('connection', function (socket) {
+    console.log('conection success');
+    socket.emit("create_state", true);
+    // socket.on('start', function (data) {
+    //   console.log('client said: ' + data);
+    //   socket.emit('client','hello client!')
+    // })
     socket.on('login', function (data) {
       //doLogin;
       socket.emit("login_state", true);
@@ -21,15 +30,12 @@ exports.start = function (config, mgr) {
 
 
     socket.on('create_room', function (data) {
-      //判断元宝是否够
-
-
-
+      platform.create_room();
       //doCreate;
       socket.emit("create_state", true);
     });
 
-    socket.on('delete_room', function (data) {
+    socket.on('destory_room', function (data) {
       //doCreate;
       socket.emit("delete_state", true);
     });
@@ -51,28 +57,29 @@ exports.start = function (config, mgr) {
     });
 
     socket.on('start', function (data) {
+      //const player_service = require(root_path + '\\module\\player.js');
+      let player1 = new player_service.player(0, 'player1');
+      let player2 = new player_service.player(1, 'player2');
+      let player3 = new player_service.player(2, 'player3');
+
+      player1.socket = socket;
       //开始游戏
-      socket.emit("start_state", true);
-
-      //给房间内每个人分别发牌
-
-
+      let p = new platform.Platform();
+      let room = p.create_room(player1);
+      room.players.put(0, player1);//初始化玩家
+      room.players.put(1, player2);//初始化玩家
+      room.players.put(2, player3);//初始化玩家
+      room.room_start();
     });
 
-    socket.on('chupai', function (data) {
+    socket.on('play', function (data) {
       //出牌
       socket.emit("chupai", true);
     });
 
-
-
-
-
-
     socket.on('chat message', function (msg) {
       io.emit('chat message', msg);
     });
-
 
 
   });

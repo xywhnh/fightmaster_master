@@ -75,7 +75,7 @@
       <input id="btn3" type="button" value="加入房间">
     </div>
     <div class="button">
-      <input id="btn4" type="button" value="测试2">
+      <input id="btn4" type="button" value="开始游戏">
     </div>
     <div class="button">
       <input id="btn5" type="button" value="测试2">
@@ -95,6 +95,23 @@
           let msg = state ? '登录成功' : '登录失败';
           $('#messages').append($('<li>').text(msg));
           window.scrollTo(0, document.body.scrollHeight);
+        });
+        return false;
+      });
+
+      //开始游戏
+      $('#btn4').on('click', function (e) {
+        let group = $('#room').val();
+        socket.emit('start', $('#content').val());
+        socket.on('sendcards', function (cards) {
+          if (cards) {
+            let cardArr = JSON.parse(cards);
+            cardArr.forEach(function (card) {
+              $('#messages').append($('<li>').text(JSON.stringify(card)));
+              window.scrollTo(0, document.body.scrollHeight);
+            }, this);
+          }
+
         });
         return false;
       });
